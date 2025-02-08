@@ -8,7 +8,7 @@ class InferlessPythonModel:
 
     # Implement the Load function here for the model
     def initialize(self):
-        self.generator = pipeline("text-generation", model="EleutherAI/gpt-neo-125M",device=0)
+        self.generator = pipeline("text-generation", model="unsloth/DeepSeek-R1-Distill-Llama-8B-unsloth-bnb-4bit",device=0)
 
     
     # Function to perform inference 
