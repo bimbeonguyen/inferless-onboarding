@@ -6,7 +6,7 @@ import torch
 class InferlessPythonModel:
   def initialize(self):
     model_id = "unsloth/DeepSeek-R1-Distill-Qwen-7B-unsloth-bnb-4bit"
-    self.llm = LLM(model=model_id, gpu_memory_utilization=0.9, max_model_len=5000, dtype=torch.bfloat16, quantization="bitsandbytes", load_format="bitsandbytes")
+    self.llm = LLM(model=model_id, gpu_memory_utilization=0.9, max_model_len=5000, dtype=torch.float16, quantization="bitsandbytes", load_format="bitsandbytes")
     self.tokenizer = AutoTokenizer.from_pretrained(model_id)
 
   def infer(self, inputs):
