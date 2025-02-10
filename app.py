@@ -1,5 +1,3 @@
-from vllm import LLM
-from vllm.sampling_params import SamplingParams
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
@@ -18,15 +16,18 @@ class InferlessPythonModel:
     top_k = int(inputs.get("top_k",40))
     max_tokens = inputs.get("max_tokens",256)
 
-    sampling_params = SamplingParams(temperature=temperature,top_p=top_p,
-                                     repetition_penalty=repetition_penalty,
-                                     top_k=top_k,max_tokens=max_tokens
-                                    )
-    input_text = self.tokenizer.apply_chat_template([{"role": "user", "content": prompts}], tokenize=False)
-    result = self.llm.generate(input_text, sampling_params)
-    result_output = [output.outputs[0].text for output in result]
+    inputs = self.tokenizer(prompts, return_tensors="pt").to("cuda")
+    outputs = self.llm.generate(
+        **inputs,
+        temperature=temperature,
+        top_p=top_p,
+        repetition_penalty=repetition_penalty,
+        top_k=top_k,
+        max_new_tokens=max_tokens
+    )
+    generated_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    return {"generated_text":result_output[0]}
+    return {"generated_text": generated_text}
 
   def finalize(self):
     self.llm = None
