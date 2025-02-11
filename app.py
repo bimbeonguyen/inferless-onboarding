@@ -16,7 +16,7 @@ class InferlessPythonModel:
         # inputs is a dictonary where the keys are input names and values are actual input data
         # e.g. in the below code the input name is "prompt"
         prompt = inputs["prompt"]
-        if (prompt == "/check")
+        if prompt == "/check":
             return {"generated_text": "OK"}
         pipeline_output = self.generator(prompt, do_sample=True, min_length=20, max_length=100, temperature=0.7, top_p=0.9, top_k=50, num_return_sequences=1)
         generated_txt = pipeline_output[0]["generated_text"]
