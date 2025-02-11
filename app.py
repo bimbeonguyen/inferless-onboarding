@@ -8,7 +8,7 @@ class InferlessPythonModel:
 
     # Implement the Load function here for the model
     def initialize(self):
-        self.generator = pipeline("text-generation", model="unsloth/DeepSeek-R1-Distill-Llama-8B-unsloth-bnb-4bit", torch_dtype=torch.float16, device_map="auto", llm_int8_enable_fp32_cpu_offload=True)
+        self.generator = pipeline("text-generation", model="unsloth/DeepSeek-R1-Distill-Llama-8B-unsloth-bnb-4bit", torch_dtype=torch.float16, device_map="auto")
 
     
     # Function to perform inference 
