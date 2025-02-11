@@ -15,7 +15,7 @@ class InferlessPythonModel:
     self.generator.model = torch.compile(self.generator.model)
 
   def infer(self, inputs):
-    prompts = inputs["prompt"]
+    prompt = inputs["prompt"]
     pipeline_output = self.generator(
         prompt,
         do_sample=True,  # Cho phép sampling
