@@ -8,7 +8,7 @@ class InferlessPythonModel:
     # self.llm = AutoModelForCausalLM.from_pretrained(model_id, load_in_4bit=True, device_map="auto")
     # self.tokenizer = AutoTokenizer.from_pretrained(model_id)
     model_id = "unsloth/DeepSeek-R1-Distill-Llama-8B-unsloth-bnb-4bit"
-    model = AutoModelForCausalLM.from_pretrained(model_id, load_in_4bit=True, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(model_id, load_in_4bit=True, device_map="auto", llm_int8_enable_fp32_cpu_offload=True)
     tokenizer = AutoTokenizer.from_pretrained(model_id)
 
     self.generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
