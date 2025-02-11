@@ -3,7 +3,7 @@ import torch
 
 class InferlessPythonModel:
   def initialize(self):
-    model_id = "unsloth/DeepSeek-R1-Distill-Qwen-7B-unsloth-bnb-4bit"
+    model_id = "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit"
     # self.llm = LLM(model=model_id, gpu_memory_utilization=0.9, max_model_len=5000, dtype=torch.float16, quantization="bitsandbytes", load_format="bitsandbytes")
     self.llm = AutoModelForCausalLM.from_pretrained(model_id, load_in_4bit=True, device_map="auto")
     self.tokenizer = AutoTokenizer.from_pretrained(model_id)
