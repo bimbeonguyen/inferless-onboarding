@@ -14,7 +14,7 @@ class InferlessPythonModel:
     top_p = inputs.get("top_p",0.1)
     repetition_penalty = inputs.get("repetition_penalty",1.18)
     top_k = int(inputs.get("top_k",40))
-    max_tokens = inputs.get("max_tokens",2048)
+    max_tokens = inputs.get("max_tokens",256)
 
     inputs = self.tokenizer(prompts, return_tensors="pt").to("cuda")
     outputs = self.llm.generate(
