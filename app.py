@@ -22,6 +22,8 @@ class InferlessPythonModel:
         # e.g. in the below code the output name is "generated_txt"
         return {"generated_text": generated_txt}
 
+    def models():
+        return {"models": "unsloth/DeepSeek-R1-Distill-Llama-8B-unsloth-bnb-4bit"}
     # perform any cleanup activity here
     def finalize(self,args):
         self.pipe = None
