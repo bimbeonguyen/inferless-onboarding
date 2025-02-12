@@ -1,18 +1,28 @@
 import json
 import numpy as np
 import torch
-from transformers import pipeline
-
+from transformers import pipeline, AutoTokenizer
+from threading import Thread
+import os
 
 class InferlessPythonModel:
 
     # Implement the Load function here for the model
     def initialize(self):
-        self.generator = pipeline("text-generation", model="unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit", torch_dtype=torch.float16, device_map="auto")
+        local_path = "/var/nfs-mount/deepseek"
+        model_id = "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit"
+        if os.path.exists(local_path) == False:
+            os.makedirs(local_path)
+            snapshot_download(
+                model_id,
+                local_dir=local_path
+            )
+        self.generator = pipeline("text-generation", local_path, torch_dtype=torch.float16, device_map="auto")
+        self.tokenizer = AutoTokenizer.from_pretrained(local_path)
+        # self.streamer = TextIteratorStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
 
-    
     # Function to perform inference 
-    def infer(self, inputs):
+    def infer(self, inputs, stream_output_handler):
         # inputs is a dictonary where the keys are input names and values are actual input data
         # e.g. in the below code the input name is "prompt"
         prompt = inputs["prompt"]
@@ -24,8 +34,6 @@ class InferlessPythonModel:
         # e.g. in the below code the output name is "generated_txt"
         return {"generated_text": generated_txt}
 
-    def models():
-        return {"models": "unsloth/DeepSeek-R1-Distill-Llama-8B-unsloth-bnb-4bit"}
     # perform any cleanup activity here
     def finalize(self,args):
         self.pipe = None
