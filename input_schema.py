@@ -6,3 +6,4 @@ INPUT_SCHEMA = {
         'example': ["There is a fine house in the forest"]
     }
 }
+IS_STREAMING_OUTPUT = True
