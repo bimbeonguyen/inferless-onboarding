@@ -18,7 +18,6 @@ class InferlessPythonModel:
                 model_id,
                 local_dir=local_path
             )
-        print(os.path.exists(local_path))
         self.generator = pipeline("text-generation", local_path, torch_dtype=torch.float16, device_map="auto")
         self.tokenizer = AutoTokenizer.from_pretrained(local_path)
         # self.streamer = TextIteratorStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
