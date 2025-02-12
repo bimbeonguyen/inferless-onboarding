@@ -12,6 +12,7 @@ class InferlessPythonModel:
     def initialize(self):
         local_path = "/var/nfs-mount/deepseek"
         model_id = "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit"
+        print(os.path.exists(local_path))
         if os.path.exists(local_path) == False:
             os.makedirs(local_path)
             snapshot_download(
