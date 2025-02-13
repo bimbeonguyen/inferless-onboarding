@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import torch
-from transformers import pipeline, AutoTokenizer
+from transformers import pipeline, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
 from huggingface_hub import snapshot_download
 import os
