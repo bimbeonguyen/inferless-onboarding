@@ -114,8 +114,8 @@ class InferlessPythonModel:
             
             # In thông tin về memory usage
             if torch.cuda.is_available():
-                print(f"GPU Memory allocated: {torch.cuda.memory_allocated() / 1024**2:.2f} MB")
-                print(f"GPU Memory reserved: {torch.cuda.memory_reserved() / 1024**2:.2f} MB")
+                print(f"GPU Memory allocated: {torch.cuda.memory_allocated() / 1024**2:.2f}MB")
+                print(f"GPU Memory reserved: {torch.cuda.memory_reserved() / 1024**2:.2f}MB")
                 
         except Exception as e:
             print(f"Initialization error: {str(e)}")
