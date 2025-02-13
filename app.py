@@ -29,7 +29,7 @@ class InferlessPythonModel:
         # e.g. in the below code the input name is "prompt"
         prompt = inputs["prompt"]
         if prompt == "/check":
-            stream_output_handler.send_streamed_output({"generated_text": "OK"})
+            stream_output_handler.send_streamed_output({"OUT": "OK"})
             stream_output_handler.finalise_streamed_output()
             return
 
@@ -55,7 +55,7 @@ class InferlessPythonModel:
         thread.start()
 
         for new_text in self.streamer:
-            output_dict = {"generated_text": new_text}
+            output_dict = {"OUT": new_text}
             stream_output_handler.send_streamed_output(output_dict)
 
         thread.join()
