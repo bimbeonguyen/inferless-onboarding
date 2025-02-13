@@ -37,9 +37,8 @@ class InferlessPythonModel:
         messages.append({ "role": "user", "content": prompt })
 
         tokenized_chat = self.tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_tensors="pt").cuda()
-        
+
         generation_kwargs = dict(
-            inputs=tokenized_chat,
             streamer=self.streamer,
             do_sample=True,
             temperature=0.7,
@@ -47,8 +46,10 @@ class InferlessPythonModel:
             top_k=50,
             max_new_tokens=100,
         )
+        def generate():
+            self.generator(tokenized_chat, **generation_kwargs)
         
-        thread = Thread(target=self.generator, kwargs=generation_kwargs)
+        thread = Thread(target=generate)
         thread.start()
 
         for new_text in self.streamer:
