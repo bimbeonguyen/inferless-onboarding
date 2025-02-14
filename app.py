@@ -10,6 +10,7 @@ class InferlessPythonModel:
 
     # Implement the Load function here for the model
     def initialize(self):
+        model_id = "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit"
         self.generator = pipeline("text-generation", model_id, torch_dtype=torch.float16, device_map="auto")
         self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         self.streamer = TextIteratorStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
