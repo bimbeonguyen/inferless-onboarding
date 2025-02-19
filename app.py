@@ -36,7 +36,7 @@ class InferlessPythonModel:
             temperature=0.7,
             top_p=0.9,
             top_k=50,
-            max_new_tokens=500,
+            max_new_tokens=100,
         )
         def generate():
             model = self.generator.model
@@ -47,26 +47,26 @@ class InferlessPythonModel:
 
         for new_text in self.streamer:
             output_dict = {
-                "model": "llama3.2",
+                "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
                 "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
-                "message": {
+                "message": json.dumps({  # Serialize the nested dictionary
                     "role": "assistant",
                     "content": new_text,
                     "images": None
-                },
+                }),
                 "done": False
             }
             stream_output_handler.send_streamed_output(output_dict)
 
         # Final message to indicate completion
         final_output_dict = {
-            "model": "llama3.2",
+            "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
             "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
-            "message": {
+            "message": json.dumps({  # Serialize the nested dictionary
                 "role": "assistant",
                 "content": "",
                 "images": None
-            },
+            }),
             "done": True
         }
         stream_output_handler.send_streamed_output(final_output_dict)
