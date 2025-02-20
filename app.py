@@ -20,7 +20,30 @@ class InferlessPythonModel:
         # e.g., in the below code, the input name is "prompt"
         prompt = inputs["prompt"]
         if prompt == "/check":
-            stream_output_handler.send_streamed_output({"OUT": "OK"})
+            stream_output_handler.send_streamed_output({
+                "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
+                "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
+                "message": json.dumps({  # Serialize the nested dictionary
+                    "role": "assistant",
+                    "content": "OK",
+                    "images": None
+                }),
+                "done": True
+            })
+            stream_output_handler.finalise_streamed_output()
+            return
+
+        if prompt == "/test":
+            stream_output_handler.send_streamed_output({
+                "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
+                "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
+                "message": json.dumps({  # Serialize the nested dictionary
+                    "role": "assistant",
+                    "content": "OK!!!!!!!!!",
+                    "images": None
+                }),
+                "done": True
+            })
             stream_output_handler.finalise_streamed_output()
             return
 
