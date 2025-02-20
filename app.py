@@ -70,7 +70,7 @@ class InferlessPythonModel:
         for new_text in self.streamer:
             output_dict = {
                 "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
-                "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
+                "created_at": datetime.now().isoformat(),
                 "message": json.dumps({  # Serialize the nested dictionary
                     "role": "assistant",
                     "content": new_text,
@@ -83,7 +83,7 @@ class InferlessPythonModel:
         # Final message to indicate completion
         final_output_dict = {
             "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
-            "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
+            "created_at": datetime.now().isoformat(),
             "message": json.dumps({  # Serialize the nested dictionary
                 "role": "assistant",
                 "content": "",
