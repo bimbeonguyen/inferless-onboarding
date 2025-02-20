@@ -3,7 +3,6 @@ import torch
 from transformers import pipeline, AutoTokenizer, TextIteratorStreamer
 from threading import Thread
 from datetime import datetime
-import pytz  # For timezone handling
 
 class InferlessPythonModel:
 
@@ -22,7 +21,7 @@ class InferlessPythonModel:
         if prompt == "/check":
             stream_output_handler.send_streamed_output({
                 "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
-                "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
+                "created_at": datetime.now().isoformat(),
                 "message": json.dumps({  # Serialize the nested dictionary
                     "role": "assistant",
                     "content": "OK",
@@ -36,7 +35,7 @@ class InferlessPythonModel:
         if prompt == "/test":
             stream_output_handler.send_streamed_output({
                 "model": "unsloth/DeepSeek-R1-Distill-Qwen-1.5B-unsloth-bnb-4bit",
-                "created_at": datetime.now(pytz.timezone('America/Los_Angeles')).isoformat(),
+                "created_at": datetime.now().isoformat(),
                 "message": json.dumps({  # Serialize the nested dictionary
                     "role": "assistant",
                     "content": "OK!!!!!!!!!",
